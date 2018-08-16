@@ -1,0 +1,40 @@
+    
+    <div class="container">
+        <div class="textarea"></div>
+        <div class="textfield">
+            <input id="txt" type="text" name="stxt">
+            <button id="btn" type="button">Send</button>
+        </div>
+    </div>
+
+
+    <script>
+        var name = prompt("Kullanıcı Adı Giriniz");
+
+        var sock = new WebSocket("ws://localhost:5001");
+        sock.onopen = function () {
+            //alert("socket conneted succesfully");
+
+            sock.send(JSON.stringify({
+                type: "name",
+                data: name
+            }));
+        }
+        sock.onmessage = function (event) {
+            console.log(JSON.parse(event.data));
+            var otherclient = JSON.parse(event.data);
+            $(".textarea").append('<div class="commentother"><p>' + otherclient.name + " : " + otherclient.data + '</p></div><div class="clear"></div>');
+        }
+        $("#btn").click(function () {
+            var comment = $("#txt").val()
+            if (comment !== "") {
+                sock.send(JSON.stringify({
+                    type: "message",
+                    data: comment
+                }));
+                $(".textarea").append('<div class="comment"><p> You : ' + comment + '</p></div><div class="clear"></div>');
+                $("#txt").val('');
+            }
+        });
+
+    </script>
