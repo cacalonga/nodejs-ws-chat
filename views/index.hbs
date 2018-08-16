@@ -31,7 +31,8 @@
         sock.onmessage = function (event) {
             console.log(JSON.parse(event.data));
             var otherclient = JSON.parse(event.data);
-            $(".textarea").append('<div class="commentother"><p>' + otherclient.name + " : " + otherclient.data + '</p></div><div class="clear"></div>');
+            $(".textarea").append('<div class="commentother"><p></p></div><div class="clear"></div>');
+            $(".textarea .commentother p").text(otherclient.name + " : " + otherclient.data);
         }
         $("#btn").click(function () {
             var comment = $("#txt").val()
@@ -40,7 +41,8 @@
                     type: "message",
                     data: comment
                 }));
-                $(".textarea").append('<div class="comment"><p> You : ' + comment + '</p></div><div class="clear"></div>');
+                $(".textarea").append('<div class="comment"><p></p></div><div class="clear"></div>');
+                $(".textarea .comment p").text("You : " + comment);
                 $("#txt").val('');
             }
         });
