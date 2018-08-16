@@ -32,7 +32,7 @@
             console.log(JSON.parse(event.data));
             var otherclient = JSON.parse(event.data);
             $(".textarea").append('<div class="commentother"><p></p></div><div class="clear"></div>');
-            $(".textarea .commentother p").text(otherclient.name + " : " + otherclient.data);
+            $(".textarea .commentother p:last").text(otherclient.name + " : " + otherclient.data);
         }
         $("#btn").click(function () {
             var comment = $("#txt").val()
@@ -42,7 +42,7 @@
                     data: comment
                 }));
                 $(".textarea").append('<div class="comment"><p></p></div><div class="clear"></div>');
-                $(".textarea .comment p").text("You : " + comment);
+                $(".textarea .comment p:last").text("You : " + comment);
                 $("#txt").val('');
             }
         });
