@@ -10,11 +10,14 @@
 
     <script>
 
-        var name = "";
+        var name = "name";
         control();
         function control(msg) {
             if (msg) { alert(msg) }
-            name = (prompt("Kullanıcı Adı Giriniz").trim() == "") ? control("lütfen kullanıcı adı giriniz") : alert("Hoşgeldiniz...");
+            name = prompt("Kullanıcı Adı Giriniz").trim();
+            if(name === ""){
+                control("Lütfen kullanıcı adınızı giriniz") 
+            }
         }
 
         var sock = new WebSocket("ws://websocket-chat-example-nodejs.herokuapp.com/");
