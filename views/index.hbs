@@ -14,7 +14,6 @@
         var sock = new WebSocket("ws://websocket-chat-example-nodejs.herokuapp.com/");
         sock.onopen = function () {
             //alert("socket conneted succesfully");
-
             sock.send(JSON.stringify({
                 type: "name",
                 data: name

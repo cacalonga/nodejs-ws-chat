@@ -75,10 +75,18 @@ s.on("connection", function (ws) {
 
         if (message.type === "name") {
             ws.personName = message.data;
+            s.clients.forEach(function e(client) {
+                if (client != ws) {
+                    client.send(JSON.stringify({
+                        name: "user joined ----> ",
+                        data: message.data
+                    }));
+                }
+            })
             return;
         }
 
-        console.log("alınan mesaj : "+ message.data);
+        console.log("alınan mesaj : " + message.data);
 
         s.clients.forEach(function e(client) {
             if (client != ws) {
