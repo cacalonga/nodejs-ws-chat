@@ -1,50 +1,59 @@
-    
-    <div class="container">
-        <div class="textarea"></div>
-        <div class="textfield">
-            <input id="txt" type="text" name="stxt">
-            <button id="btn" type="button">Send</button>
-        </div>
+<div class="container">
+    <div class="textarea"></div>
+    <div class="textfield">
+        <input id="txt" type="text" name="stxt">
+        <button id="btn" type="button">Send</button>
     </div>
+</div>
 
 
-    <script>
+<script>
 
-        var name = "name";
-        control();
-        function control(msg) {
-            if (msg) { alert(msg) }
-            name = prompt("Kullanıcı Adı Giriniz").trim();
-            if(name === ""){
-                control("Lütfen kullanıcı adınızı giriniz") 
-            }
+    var name = "name";
+    control();
+    function control(msg) {
+        if (msg) { alert(msg) }
+        name = prompt("Kullanıcı Adı Giriniz").trim();
+        if (name === "") {
+            control("Lütfen kullanıcı adınızı giriniz")
         }
+    }
 
-        var sock = new WebSocket("ws://websocket-chat-example-nodejs.herokuapp.com/");
-        sock.onopen = function () {
-            //alert("socket conneted succesfully");
+    var sock = new WebSocket("ws://websocket-chat-example-nodejs.herokuapp.com/");
+    sock.onopen = function () {
+        //alert("socket conneted succesfully");
+        sock.send(JSON.stringify({
+            type: "name",
+            data: name
+        }));
+    }
+    sock.onmessage = function (event) {
+        console.log(JSON.parse(event.data));
+        var otherclient = JSON.parse(event.data);
+        $(".textarea").append('<div class="commentother"><p></p></div><div class="clear"></div>');
+        $(".textarea .commentother p:last").text(otherclient.name + " : " + otherclient.data);
+    }
+    $("#txt").keydown(function (event) {
+        if (event.which == 13) {
+            sendMessage();
+        }
+    });
+    
+    $("#btn").click(function () {
+        sendMessage();
+    }});
+
+    function sendMessage() {
+        var comment = $("#txt").val()
+        if (comment !== "") {
             sock.send(JSON.stringify({
-                type: "name",
-                data: name
+                type: "message",
+                data: comment
             }));
+            $(".textarea").append('<div class="comment"><p></p></div><div class="clear"></div>');
+            $(".textarea .comment p:last").text("You : " + comment);
+            $("#txt").val('');
         }
-        sock.onmessage = function (event) {
-            console.log(JSON.parse(event.data));
-            var otherclient = JSON.parse(event.data);
-            $(".textarea").append('<div class="commentother"><p></p></div><div class="clear"></div>');
-            $(".textarea .commentother p:last").text(otherclient.name + " : " + otherclient.data);
-        }
-        $("#btn").click(function () {
-            var comment = $("#txt").val()
-            if (comment !== "") {
-                sock.send(JSON.stringify({
-                    type: "message",
-                    data: comment
-                }));
-                $(".textarea").append('<div class="comment"><p></p></div><div class="clear"></div>');
-                $(".textarea .comment p:last").text("You : " + comment);
-                $("#txt").val('');
-            }
-        });
+    }
 
-    </script>
+</script>
