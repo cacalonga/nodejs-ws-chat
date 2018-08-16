@@ -63,7 +63,7 @@ app.set('port', port);
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
+var server = https.createServer(app);
 
 //----ws----
 var s = new wss.Server({ server });
