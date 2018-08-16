@@ -11,7 +11,7 @@
     <script>
         var name = prompt("Kullanıcı Adı Giriniz");
 
-        var sock = new WebSocket("ws://localhost:5001");
+        var sock = new WebSocket("ws://websocket-chat-example-nodejs.herokuapp.com/");
         sock.onopen = function () {
             //alert("socket conneted succesfully");
 
