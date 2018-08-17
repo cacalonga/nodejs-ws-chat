@@ -5,6 +5,9 @@
         <button id="btn" type="button">Send</button>
     </div>
 </div>
+<div id="userlist">
+    <p></p>
+</div>
 
 
 <script>
@@ -32,6 +35,7 @@
         var otherclient = JSON.parse(event.data);
         $(".textarea").append('<div class="commentother"><p></p></div><div class="clear"></div>');
         $(".textarea .commentother p:last").text(otherclient.name + " : " + otherclient.data);
+        //$("#userlist p").text(otherclient.listdata);
     }
     $("#txt").keydown(function (event) {
         if (event.which == 13) {
