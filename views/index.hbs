@@ -35,7 +35,11 @@
         var otherclient = JSON.parse(event.data);
         $(".textarea").append('<div class="commentother"><p></p></div><div class="clear"></div>');
         $(".textarea .commentother p:last").text(otherclient.name + " : " + otherclient.data);
+
         //$("#userlist p").text(otherclient.listdata);
+        $(".textarea").animate({scrollTop: $(".textarea").prop("scrollHeight")},1000);
+        //var d = $('.textarea');
+        //d.scrollTop(d.prop("scrollHeight"));
     }
     $("#txt").keydown(function (event) {
         if (event.which == 13) {
@@ -57,6 +61,9 @@
             $(".textarea").append('<div class="comment"><p></p></div><div class="clear"></div>');
             $(".textarea .comment p:last").text("You : " + comment);
             $("#txt").val('');
+             $(".textarea").animate({scrollTop: $(".textarea").prop("scrollHeight")},1000);
+            //var d = $('.textarea');
+            //d.scrollTop(d.prop("scrollHeight"));
         }
     }
     $("#txt").focus();

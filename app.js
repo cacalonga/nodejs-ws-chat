@@ -66,8 +66,10 @@ app.set('port', port);
 var server = http.createServer(app);
 
 //----ws----
+
 var s = new wss.Server({ server });
 var lst = [];
+
 s.on("connection", function (ws) {
 
     ws.on("message", function (message) {
@@ -88,9 +90,7 @@ s.on("connection", function (ws) {
             })
             console.log(lst);
             return;
-
         }
-
 
         console.log("alınan mesaj : " + message.data);
 
