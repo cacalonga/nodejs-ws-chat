@@ -47,7 +47,7 @@ app.use(function (err, req, res, next) {
 });
 //---------------------www--------------
 
-
+console.log(process.cwd());
 
 /**
  * Module dependencies.
