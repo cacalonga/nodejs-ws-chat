@@ -10,6 +10,7 @@ var wss = require('ws');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var denemeRouter = require('./routes/deneme');
 
 var app = express();
 
@@ -19,12 +20,15 @@ app.set('view engine', 'hbs');
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({
+    extended: false
+}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/deneme', denemeRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -67,7 +71,9 @@ var server = http.createServer(app);
 
 //----ws----
 
-var s = new wss.Server({ server });
+var s = new wss.Server({
+    server
+});
 var lst = [];
 
 s.on("connection", function (ws) {
@@ -146,9 +152,9 @@ function onError(error) {
         throw error;
     }
 
-    var bind = typeof port === 'string'
-        ? 'Pipe ' + port
-        : 'Port ' + port;
+    var bind = typeof port === 'string' ?
+        'Pipe ' + port :
+        'Port ' + port;
 
     // handle specific listen errors with friendly messages
     switch (error.code) {
@@ -171,9 +177,9 @@ function onError(error) {
 
 function onListening() {
     var addr = server.address();
-    var bind = typeof addr === 'string'
-        ? 'pipe ' + addr
-        : 'port ' + addr.port;
+    var bind = typeof addr === 'string' ?
+        'pipe ' + addr :
+        'port ' + addr.port;
     debug('Listening on ' + bind);
 }
 
