@@ -1,0 +1,11 @@
+{
+  "name": "websocket-chat-nodejs",
+  "description": "",
+  "main": "app.js",
+  "authors": [
+    "cacalonga <cacalonga@hotmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/cacalonga/nodejs-ws-chat",
+  "private": true
+}
