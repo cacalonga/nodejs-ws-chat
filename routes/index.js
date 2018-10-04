@@ -3,7 +3,6 @@ var router = express.Router();
 //var app = require('../app');
 //var expressWs = require('express-ws')(app);
 
-/* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index');
 });
